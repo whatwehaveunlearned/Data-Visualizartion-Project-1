@@ -8,16 +8,36 @@
 <html>
 
 	<head>
-
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		  <script>
+			  $(function() {
+			    $( "#slider-range" ).slider({
+			      range: true,
+			      min: 0,
+			      max: 500,
+			      values: [ 75, 300 ],
+			      slide: function( event, ui ) {
+			        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			      }
+			    });
+			    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+			      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+			  });
+  		</script>
 	</head>
 
 	<body>
+		<p>
+			<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;">
+		</p>
+		<div id="slider-range"></div>
 		<div id = "container"></div>
 		<script src = "kinetic.js"></script>
 		<script src = "death.js"></script>
 		<script src = "map_info.js"></script>
+		<script src = "death_days.js"></script>
 		<script src = "map.js"></script>
-
 	</body>
 
 </html>

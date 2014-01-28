@@ -6,7 +6,7 @@
 
 document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
-
+document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
 //initialize arrays to hold the position values for map lines, pumps and deaths
 var line_points = new Array();
 var line =[];
@@ -18,7 +18,7 @@ var death =[];
 var color = new Array();
 
 //variable to set the scale
-var scale=40;
+var scale=50;
 
 // create a Stage using Kinetic.Stage
 var stage = new Kinetic.Stage({
