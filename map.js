@@ -6,7 +6,7 @@
 
 document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
-document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="plot_flot.js" ></scr'+'ipt>');
 //initialize arrays to hold the position values for map lines, pumps and deaths
 var line_points = new Array();
 var line =[];
@@ -18,11 +18,11 @@ var death =[];
 var color = new Array();
 
 //variable to set the scale
-var scale=50;
+var scale=40;
 
 // create a Stage using Kinetic.Stage
 var stage = new Kinetic.Stage({
-        container: 'container',
+        container: 'map',
         width: 1920,
         height: 1080,
         draggable: true,
@@ -58,7 +58,6 @@ for (var i=0;i<Points.map.length;i++)
 //Create the pumps array with their positions
 for (var i=0;i<(Points.pumps.length);i++)
 {
-	console.log(i)
 	pump_position.push(Points.pumps[i].x*scale)
 	pump_position.push(Points.pumps[i].y*scale)
 }
@@ -94,7 +93,6 @@ for (var i=0;i<Deaths.position.length;i++)
     //dummy value to mach the i changing by 2 in Add deaths to the layer
     color.push(0)
 }
-console.log(color)
 
 //Add deaths to the layer
 for (var i=0; i<death_position.length;i++)
@@ -111,7 +109,7 @@ for (var i=0; i<death_position.length;i++)
 	layer.add(death[i])
 	i++;
 }
-//console.log(death)
+console.log(death_position)
 //console.log(pump)
 
 layer.draw();

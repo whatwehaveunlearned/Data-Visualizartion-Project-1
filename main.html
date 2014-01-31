@@ -8,18 +8,28 @@
 <html>
 
 	<head>
-		<script src = "http://code.highcharts.com/highcharts.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<script src = "http://code.highcharts.com/stock/highstock.js"></script>
+		<script language="javascript" src="jquery.js"></script>
+		<script language="javascript" src="jquery.flot.js"></script>
+		<script language="javascript" src="jquery.flot.selection.js"></script>
+		<script language="javascript" src="jquery.flot.categories.js"></script>
+		<script language="javascript" type="text/javascript" src="jquery.flot.threshold.js"></script>
+		<link href="main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
 		<p>
-		<div id = "container"></div>
+		<div id ="map">
+		<p>You selected: <span id="selection" class="selection"></span></p>
+		</div>
+		<div id="plot" class="plot"></div>
 		<script src = "kinetic.js"></script>
 		<script src = "death.js"></script>
 		<script src = "map_info.js"></script>
 		<script src = "death_days.js"></script>
 		<script src = "map.js"></script>
+		<script src = "plot_flot.js"></script>
 	</body>
 
 </html>
