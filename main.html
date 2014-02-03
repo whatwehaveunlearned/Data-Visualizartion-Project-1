@@ -19,17 +19,19 @@
 	</head>
 
 	<body>
-		<p>
-		<div id ="map">
-		<p>You selected: <span id="selection" class="selection"></span></p>
-		</div>
+		<p class="selection">You selected: <span id="selection"></span></p>
+		<button id="+button" type="button"> + </button>
+		<button id="-button" type="button"> - </button>
+		<div id ="map" class="map"></div>
 		<div id="plot" class="plot"></div>
 		<script src = "kinetic.js"></script>
 		<script src = "death.js"></script>
 		<script src = "map_info.js"></script>
 		<script src = "death_days.js"></script>
-		<script src = "map.js"></script>
 		<script src = "plot_flot.js"></script>
+		<script src = "map.js"></script>
+		<input type="hidden" name="from" value="English">
+		<input type="hidden" name="to" value="English">
 	</body>
 
 </html>

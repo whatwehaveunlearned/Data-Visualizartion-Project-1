@@ -64,6 +64,7 @@
 				noColumns: 2
 			},
 			xaxis: {
+				label: "Days",
 				mode: "categories",
 				tickDecimals: 0
 			},

@@ -7,6 +7,7 @@
 document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="plot_flot.js" ></scr'+'ipt>');
+
 //initialize arrays to hold the position values for map lines, pumps and deaths
 var line_points = new Array();
 var line =[];
@@ -18,7 +19,7 @@ var death =[];
 var color = new Array();
 
 //variable to set the scale
-var scale=40;
+var scale=50;
 
 // create a Stage using Kinetic.Stage
 var stage = new Kinetic.Stage({
@@ -38,8 +39,8 @@ for (var i=0;i<Points.map.length;i++)
     var number_points=Points.map[i].y;
     for (var j=1;j<number_points+1;j++)
     {
-        line_points.push(Points.map[i+j].x*scale)
-        line_points.push(Points.map[i+j].y*scale)
+        line_points.push((Points.map[i+j].x-3.3900001)*scale)
+        line_points.push(-(Points.map[i+j].y-18.7250004)*scale)
     } 
     
      // create a line
@@ -47,7 +48,7 @@ for (var i=0;i<Points.map.length;i++)
      		x:0,
      		y:0,
             points: line_points,
-            stroke: 'black',
+            stroke: 'white',
             strokeWidth: 2,
           });
      layer.add(line[i]);
@@ -58,8 +59,8 @@ for (var i=0;i<Points.map.length;i++)
 //Create the pumps array with their positions
 for (var i=0;i<(Points.pumps.length);i++)
 {
-	pump_position.push(Points.pumps[i].x*scale)
-	pump_position.push(Points.pumps[i].y*scale)
+	pump_position.push((Points.pumps[i].x-3.3900001)*scale)
+	pump_position.push(-(Points.pumps[i].y-18.7250004)*scale)
 }
 
 //Create the real pumps and add them to the layer
@@ -80,8 +81,8 @@ for (var i=0; i<pump_position.length;i++)
 //Array to hold the position of deaths
 for (var i=0;i<Deaths.position.length;i++)
 {
-	death_position.push(Deaths.position[i].x*scale)
-	death_position.push(Deaths.position[i].y*scale)
+	death_position.push((Deaths.position[i].x-3.3900001)*scale)
+	death_position.push(-(Deaths.position[i].y-18.7250004)*scale)
     if (Deaths.position[i].sex==1)
     {
         color.push('pink');
@@ -109,7 +110,7 @@ for (var i=0; i<death_position.length;i++)
 	layer.add(death[i])
 	i++;
 }
-console.log(death_position)
+//console.log(death_position)
 //console.log(pump)
 
 layer.draw();
