@@ -109,12 +109,12 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			map_group.removeChildren();
     		maplayer.draw();
     		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need to get from the beginning of the range
-			paintMap(50,from,from+numberofdeaths);
-			console.log(deathPerDay)
+			paintMap(scale,from,from+numberofdeaths);
+			console.log(from)
 			//console.log(from)
 			//console.log(to)
 			console.log(numberofdeaths)
-			console.log(deathPerDay.length)
+			//console.log(deathPerDay.length)
 
 			$("#selection").text(from + " to " + to);
 
@@ -128,6 +128,23 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 					}
 				}));
 			}
+
+			//Fuction to manage the zoom with the selected information
+			$(document).ready(function()
+			{
+			  $("#plus").click(function(){
+			    scale+=10;
+			    map_group.removeChildren();
+			    maplayer.draw();
+			    paintMap(scale,from,from+numberofdeaths);
+			  });
+			  $("#minus").click(function(){
+			    scale-=10;
+			    map_group.removeChildren();
+			    maplayer.draw();
+			    paintMap(scale,from,from+numberofdeaths);
+			  });
+			});
 		});
 
 		placeholder.bind("plotunselected", function (event) {
@@ -151,5 +168,7 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 
 		// Add the Flot version string to the footer
 
-		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+		$("#footer").prepend("Flot " + $.plot.version + " &ndash; ");	
 	});
+
+

@@ -31,23 +31,6 @@ paintMap(scale,from,to);
 
 //########FUNCTIONS USED IN THIS JAVASCRIPT#############
 
-//Fuction to manage the zoom
-$(document).ready(function()
-{
-  $("#plus").click(function(){
-    scale+=10;
-    map_group.removeChildren();
-    maplayer.draw();
-    paintMap(scale,from,to);
-  });
-  $("#minus").click(function(){
-    scale-=10;
-    map_group.removeChildren();
-    maplayer.draw();
-    paintMap(scale,from,to);
-  });
-});
-
 //Function to paint the lines of the map, the pumps and the death people  with a given scale
 function paintMap(scale,from,to)
 {
