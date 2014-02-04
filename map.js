@@ -25,10 +25,14 @@ var scale=50;
 $(document).ready(function(){
   $("#plus").click(function(){
     scale+=10;
+    map_group.removeChildren();
+    maplayer.draw();
     paintMap(scale);
   });
   $("#minus").click(function(){
     scale-=10;
+    map_group.removeChildren();
+    maplayer.draw();
     paintMap(scale);
   });
 });
@@ -138,5 +142,4 @@ function paintMap(scale)
 
   maplayer.add(map_group)
   stage.add(maplayer);
-  //console.log(stage);
 }
