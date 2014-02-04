@@ -8,7 +8,7 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 	$(function() {
 
 		var data = [{
-			label: "Deaths",
+			label: "Number of deaths each day",
 			data: [
 			  ["19-Aug",1  ],
 			  ["20-Aug",1  ],
@@ -91,10 +91,16 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			var deathPerDay = new Array ();
 			var numberofdeaths = 0;
 			var from = Math.ceil(ranges.xaxis.from.toFixed(1));
-			var to = Math.ceil(ranges.xaxis.to.toFixed(1));
-			//Store the amount of death people for each day in the selected range in the array
-			for (var i=from; i<to;i++){
-				deathPerDay.push(Death_dates.day[i].deaths)
+			var to = Math.floor(ranges.xaxis.to.toFixed(1));
+
+			if (from != to){
+				//Store the amount of death people for each day in the selected range in the array
+				for (var i=from; i<to+1;i++){
+					deathPerDay.push(Death_dates.day[i].deaths)
+				}
+			}
+			else{
+				deathPerDay.push(Death_dates.day[from].deaths)
 			}
 			//Number of death people during that range
 			for(var i=0; i<deathPerDay.length;i++){
@@ -102,11 +108,13 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			} 
 			map_group.removeChildren();
     		maplayer.draw();
-    		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need
-			paintMap(50,from,numberofdeaths*2);
+    		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need to get from the beginning of the range
+			paintMap(50,from,from+numberofdeaths);
 			console.log(deathPerDay)
-			console.log(from)
+			//console.log(from)
 			//console.log(to)
+			console.log(numberofdeaths)
+			console.log(deathPerDay.length)
 
 			$("#selection").text(from + " to " + to);
 

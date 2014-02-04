@@ -38,13 +38,13 @@ $(document).ready(function()
     scale+=10;
     map_group.removeChildren();
     maplayer.draw();
-    paintMap(scale);
+    paintMap(scale,from,to);
   });
   $("#minus").click(function(){
     scale-=10;
     map_group.removeChildren();
     maplayer.draw();
-    paintMap(scale);
+    paintMap(scale,from,to);
   });
 });
 
@@ -121,28 +121,28 @@ function paintMap(scale,from,to)
       {
           color.push('green');
       }
-      //dummy value to mach the i changing by 2 in Add deaths to the layer
-      color.push(0)
   }
 
   //Add deaths to the layer
   for (var i=from; i<to;i++)
   {
   	death[i] = new Kinetic.Rect({
-  		x:death_position[i],
-  		y:death_position[i+1],
+  		x:(Deaths.position[i].x-3.3900001)*scale,
+  		y:-(Deaths.position[i].y-18.7250004)*scale,
   		width: 0.1*scale,
-          height: 0.1*scale,
-          fill: color[i],
-          stroke: 'black',
-          strokeWidth: 0.01*scale
+      height: 0.1*scale,
+      fill: color[i],
+      stroke: 'black',
+      strokeWidth: 0.01*scale  
   	});
+    console.log(Deaths.position[i].x)
+    console.log(Deaths.position[i].y) 
     map_group.add(death[i]);
-  	i++;
   }
-  //console.log(death_position)
-  //console.log(pump)
-
   maplayer.add(map_group)
   stage.add(maplayer);
+  //console.log(death_position)
+  //console.log(death)
+  console.log(from)
+  console.log(to)
 }
