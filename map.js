@@ -8,16 +8,6 @@ document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="plot_flot.js" ></scr'+'ipt>');
 
-//initialize arrays to hold the position values for map lines, pumps and deaths
-var line_points = new Array();
-var line =[];
-var pump_position = new Array();
-var pump =[];
-var death_position = new Array();
-var death =[];
-//initialize array to hold sex color of the death
-var color = new Array();
-
 //variable to set the initial scale
 var scale=50;
 
@@ -53,9 +43,19 @@ var maplayer =new Kinetic.Layer();
 //we paint the initial map
 paintMap(scale);
 
-//Function to paint the lines of the map, the pumps and the death people 
+//Function to paint the lines of the map, the pumps and the death people  with a given scale
 function paintMap(scale)
 {
+  //initialize arrays to hold the position values for map lines, pumps and deaths
+  var line_points = new Array();
+  var line =[];
+  var pump_position = new Array();
+  var pump =[];
+  var death_position = new Array();
+  var death =[];
+  //initialize array to hold sex color of the death
+  var color = new Array();
+
   maplayer.clear();
   maplayer.clearBeforeDraw(true);
   //read coordenates from map and draw a line
@@ -75,7 +75,7 @@ function paintMap(scale)
        		y:0,
               points: line_points,
               stroke: 'white',
-              strokeWidth: 2,
+              strokeWidth: 0.05*scale,
             });
        map_group.add(line[i]);
        i=i+j-1;
@@ -84,7 +84,7 @@ function paintMap(scale)
 
 
   //Create the pumps array with their positions
-  for (var i=0;i<(Points.pumps.length);i++)
+  for (var i=0;i<Points.pumps.length;i++)
   {
   	pump_position.push((Points.pumps[i].x-3.3900001)*scale)
   	pump_position.push(-(Points.pumps[i].y-18.7250004)*scale)
