@@ -6,13 +6,34 @@
 
 document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
-document.write('<scr'+'ipt type="text/javascript" src="plot_flot.js" ></scr'+'ipt>');
 
 //variable to set the initial scale
-var scale=50;
+var scale = 50;
+var from = 0;
+var to = Deaths.position.length;
+
+//initialize the stage
+var stage = new Kinetic.Stage({
+      container: 'map',
+      width: 1920,
+      height: 1080,
+      draggable: true,
+      });
+//Create a group with all the objects of the map
+var map_group = new Kinetic.Group({
+    });
+// create a Layer using Kinetic.Layer
+var maplayer =new Kinetic.Layer();
+
+//we paint the initial map
+paintMap(scale,from,to);
+
+
+//########FUNCTIONS USED IN THIS JAVASCRIPT#############
 
 //Fuction to manage the zoom
-$(document).ready(function(){
+$(document).ready(function()
+{
   $("#plus").click(function(){
     scale+=10;
     map_group.removeChildren();
@@ -27,24 +48,8 @@ $(document).ready(function(){
   });
 });
 
-//initialize the stage
-  var stage = new Kinetic.Stage({
-        container: 'map',
-        width: 1920,
-        height: 1080,
-        draggable: true,
-        });
-//Create a group with all the objects of the map
- var map_group = new Kinetic.Group({
-      });
-// create a Layer using Kinetic.Layer
-var maplayer =new Kinetic.Layer();
-
-//we paint the initial map
-paintMap(scale);
-
 //Function to paint the lines of the map, the pumps and the death people  with a given scale
-function paintMap(scale)
+function paintMap(scale,from,to)
 {
   //initialize arrays to hold the position values for map lines, pumps and deaths
   var line_points = new Array();
@@ -56,8 +61,6 @@ function paintMap(scale)
   //initialize array to hold sex color of the death
   var color = new Array();
 
-  maplayer.clear();
-  maplayer.clearBeforeDraw(true);
   //read coordenates from map and draw a line
   for (var i=0;i<Points.map.length;i++)
   {
@@ -123,7 +126,7 @@ function paintMap(scale)
   }
 
   //Add deaths to the layer
-  for (var i=0; i<death_position.length;i++)
+  for (var i=from; i<to;i++)
   {
   	death[i] = new Kinetic.Rect({
   		x:death_position[i],

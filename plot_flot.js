@@ -1,6 +1,9 @@
 //Author:Alberto Gonzalez Martinez
 //Date:29 Jan 2014 (c)agon
-//javascript to plot using Flot Library
+//javascript to plot graph of death people using Flot Library
+
+document.write('<scr'+'ipt type="text/javascript" src="map.js" ></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
 
 	$(function() {
 
@@ -84,13 +87,28 @@
 		var placeholder = $("#plot");
 
 		placeholder.bind("plotselected", function (event, ranges) {
-			var desde = 0 
-			desde = Math.ceil( ranges.xaxis.from.toFixed(1) );
-			var hasta = Math.floor(ranges.xaxis.to.toFixed(1) );
-			console.log(desde)
-			console.log(hasta)
+			//Array to save how many people die each day and the number of deaths in that range
+			var deathPerDay = new Array ();
+			var numberofdeaths = 0;
+			var from = Math.ceil(ranges.xaxis.from.toFixed(1));
+			var to = Math.ceil(ranges.xaxis.to.toFixed(1));
+			//Store the amount of death people for each day in the selected range in the array
+			for (var i=from; i<to;i++){
+				deathPerDay.push(Death_dates.day[i].deaths)
+			}
+			//Number of death people during that range
+			for(var i=0; i<deathPerDay.length;i++){
+				numberofdeaths += deathPerDay[i];
+			} 
+			map_group.removeChildren();
+    		maplayer.draw();
+    		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need
+			paintMap(50,from,numberofdeaths*2);
+			console.log(deathPerDay)
+			console.log(from)
+			//console.log(to)
 
-			$("#selection").text(ranges.xaxis.from.toFixed(1) + " to " + ranges.xaxis.to.toFixed(1));
+			$("#selection").text(from + " to " + to);
 
 			var zoom = $("#zoom").attr("checked");
 
