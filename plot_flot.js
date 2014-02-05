@@ -106,14 +106,14 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			for(var i=0; i<deathPerDay.length;i++){
 				numberofdeaths += deathPerDay[i];
 			} 
-			map_group.removeChildren();
-    		maplayer.draw();
+			death_group.removeChildren();
+    		deathlayer.draw();
     		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need to get from the beginning of the range
 			paintMap(scale,from,from+numberofdeaths);
-			console.log(from)
+			//console.log(from)
 			//console.log(from)
 			//console.log(to)
-			console.log(numberofdeaths)
+			//console.log(numberofdeaths)
 			//console.log(deathPerDay.length)
 
 			$("#selection").text(from + " to " + to);
@@ -134,14 +134,22 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			{
 			  $("#plus").click(function(){
 			    scale+=10;
-			    map_group.removeChildren();
+			    death_group.removeChildren();
+			    line_group.removeChildren();
+			    pump_group.removeChildren();
 			    maplayer.draw();
+				pumplayer.draw();
+			    deathlayer.draw();
 			    paintMap(scale,from,from+numberofdeaths);
 			  });
 			  $("#minus").click(function(){
 			    scale-=10;
-			    map_group.removeChildren();
+			    death_group.removeChildren();
+			    line_group.removeChildren();
+			    pump_group.removeChildren();
 			    maplayer.draw();
+				pumplayer.draw();
+			    deathlayer.draw();
 			    paintMap(scale,from,from+numberofdeaths);
 			  });
 			});
