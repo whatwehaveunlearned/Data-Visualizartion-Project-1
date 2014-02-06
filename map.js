@@ -16,7 +16,8 @@ var to = Deaths.position.length;
 //initialize the stage
 var stage = new Kinetic.Stage({
       container: 'map',
-      width: 1920,
+      //width: 1920,
+      width:1020,
       height: 1080,
       draggable: true,
       });
