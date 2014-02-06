@@ -106,7 +106,7 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			for(var i=0; i<deathPerDay.length;i++){
 				numberofdeaths += deathPerDay[i];
 			} 
-			death_group.removeChildren();
+			deathlayer.removeChildren();
     		deathlayer.draw();
     		//we paint the map knowing the number of dead people we know the number of (x,y) positions we need to get from the beginning of the range
 			paintMap(scale,from,from+numberofdeaths);
@@ -133,8 +133,8 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			$(document).ready(function()
 			{
 			  $("#plus").click(function(){
-			    scale+=10;
-			    death_group.removeChildren();
+			    scale+=5;
+			    deathlayer.removeChildren();
 			    line_group.removeChildren();
 			    pump_group.removeChildren();
 			    maplayer.draw();
@@ -143,8 +143,8 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			    paintMap(scale,from,from+numberofdeaths);
 			  });
 			  $("#minus").click(function(){
-			    scale-=10;
-			    death_group.removeChildren();
+			    scale-=5;
+			    deathlayer.removeChildren();
 			    line_group.removeChildren();
 			    pump_group.removeChildren();
 			    maplayer.draw();

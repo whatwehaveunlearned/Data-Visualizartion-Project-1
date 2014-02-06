@@ -36,6 +36,7 @@ var maplayer = new Kinetic.Layer();
 var pumplayer = new Kinetic.Layer();
 var deathlayer = new Kinetic.Layer();
 var textlayer = new Kinetic.Layer();
+var tooltipLayer = new Kinetic.Layer();
 
 //we paint the initial map
 paintMap(scale,from,to);
@@ -55,13 +56,13 @@ function paintMap(scale,from,to)
   var death =[];
   //initialize array to hold sex color of the death
   var color = new Array();
+  var age = new Array();
 
   //read coordenates from map and draw a line
   for (var i=0;i<Points.map.length;i++)
   {
       //we see the number of points
       var number_points=Points.map[i].y;
-      console.log(number_points);
       for (var j=1;j<number_points+1;j++)
       {
           line_points.push((Points.map[i+j].x-3)*scale)
@@ -84,7 +85,6 @@ function paintMap(scale,from,to)
           }
         }
       }
-      console.log(stroke_line);
       
        // create a line
        line[i] = new Kinetic.Line({
@@ -127,6 +127,7 @@ function paintMap(scale,from,to)
   {
   	death_position.push((Deaths.position[i].x-3)*scale)
   	death_position.push(-(Deaths.position[i].y-19)*scale)
+    age.push(Deaths.position[i].age)
       if (Deaths.position[i].sex==1)
       {
           color.push('pink');
@@ -135,63 +136,180 @@ function paintMap(scale,from,to)
       {
           color.push('green');
       }
-  }
+  }    
 
   //Add deaths to the layer
   for (var i=from; i<to;i++)
   {
-  	death[i] = new Kinetic.Rect({
-  		x:(Deaths.position[i].x-3)*scale,
-  		y:-(Deaths.position[i].y-19)*scale,
-  		width: 0.1*scale,
-      height: 0.1*scale,
-      fill: color[i],
-      stroke: 'black',
-      strokeWidth: 0.01*scale  
-  	}); 
-    death_group.add(death[i]);
-  }
+      addNode(deathlayer,Deaths.position[i],scale,color,i,age);  
+  } 
   maplayer.add(line_group)
   pumplayer.add(pump_group)
-  deathlayer.add(death_group)
+  //deathlayer.add(death)
   stage.add(maplayer);
   stage.add(pumplayer);
   stage.add(deathlayer);
 
+  //Functions of paintMap fuction
+
+  //Function to create a node
+  function addNode(layer,DeathsPosition,scale,color,i) {
+        var death = new Kinetic.Rect({
+          x: (DeathsPosition.x-3)*scale,
+          y: -(DeathsPosition.y-19)*scale,
+          width: 0.1*scale,
+          height: 0.1*scale,
+          fill: color[i],
+          stroke: 'black',
+          strokeWidth: 0.01*scale, 
+          id: i,
+          age: age[i]
+        });
+        deathlayer.add(death)
+        console.log(death)
+      }
+
   //Functions to see values of the data
-  //Pumps mouseover
-  pumplayer.on('mouseover', function(event) {
+  
+  //1. Pumps mouseover
+  pumplayer.on('mouseover', function(evt) {
+            
+          //Text to display
+
+          var tooltip = new Kinetic.Label({
+          opacity: 0.75,
+          visible: false,
+          listening: false
+        });
+        
+        tooltip.add(new Kinetic.Tag({
+          fill: 'black',
+          pointerDirection: 'down',
+          pointerWidth: 10,
+          pointerHeight: 10,
+          lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 10,
+          shadowOffset: {x:10, y:10},
+          shadowOpacity: 0.2
+        }));
+        
+        tooltip.add(new Kinetic.Text({
+          text: '',
+          fontFamily: 'Calibri',
+          fontSize: 18,
+          padding: 5,
+          fill: 'white'
+        }));
+        
+        tooltipLayer.add(tooltip);
+        stage.add(tooltipLayer);
+
+        var node = evt.targetNode;
+        if (node) {
+          // update tooltip
+          var mousePos = node.getStage().getPointerPosition();
+          tooltip.position({x:mousePos.x, y:mousePos.y - 5});
+          tooltip.getText().text('Pump');
+          tooltip.show();
+          tooltipLayer.batchDraw();
+        }
+
+        pumplayer.on('mouseout', function(evt) {
+        tooltip.hide();
+        tooltipLayer.draw();
+        });
+        pumplayer.on('mouseout', function(evt) {
+        tooltip.hide();
+        tooltipLayer.draw();
+        });
+
           var mousePos = stage.getPointerPosition();
           var x = mousePos.x;
           var y = mousePos.y;
           //writeMessage('x: ' + x + ', y: ' + y);
           writeMessage('Pump',x,y);
         });
-  pumplayer.on('mouseout', function(event) {
-          var mousePos = stage.getPointerPosition();
-          var x = mousePos.x;
-          var y = mousePos.y;
-          //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage(' ');
-        });
+
   //Deaths mouseover
-  deathlayer.on('mouseover', function(event) {
-          var mousePos = stage.getPointerPosition();
-          var x = mousePos.x;
-          var y = mousePos.y;
-          death_x= death_group.Children[0];
-          console.log(death_group)
-          console.log(death_x)
-          //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage('Pump',x,y);
+
+  deathlayer.on('mouseover', function(evt) {
+          
+          //Text to display
+
+          var tooltip = new Kinetic.Label({
+          opacity: 0.75,
+          visible: false,
+          listening: false
         });
-  deathlayer.on('mouseout', function(event,death_group) {
-          var mousePos = stage.getPointerPosition();
-          var x = mousePos.x-40;
-          var y = mousePos.y+10;
-          //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage(' ');
+        
+        tooltip.add(new Kinetic.Tag({
+          fill: 'black',
+          pointerDirection: 'down',
+          pointerWidth: 10,
+          pointerHeight: 10,
+          lineJoin: 'round',
+          shadowColor: 'black',
+          shadowBlur: 10,
+          shadowOffset: {x:10, y:10},
+          shadowOpacity: 0.2
+        }));
+        
+        tooltip.add(new Kinetic.Text({
+          text: '',
+          fontFamily: 'Calibri',
+          fontSize: 18,
+          padding: 5,
+          fill: 'white'
+        }));
+        
+        tooltipLayer.add(tooltip);
+        stage.add(tooltipLayer);
+
+        var node = evt.targetNode;
+        if (node) {
+          // update tooltip
+          var mousePos = node.getStage().getPointerPosition();
+          tooltip.position({x:mousePos.x, y:mousePos.y - 5});
+          if (node.attrs.fill=='pink'){
+            gender="female";
+          }
+          else{
+            gender="male";
+          }
+          if (node.attrs.age==0){
+            age="0-10"
+          }
+          if (node.attrs.age==1){
+            age="11-20"
+          }
+          if (node.attrs.age==2){
+            age="21-40"
+          }
+          if (node.attrs.age==3){
+            age="41-60"
+          }
+          if (node.attrs.age==4){
+            age="61-80"
+          }
+          if (node.attrs.age==5){
+            age=">80"    
+          }
+          tooltip.getText().text("gender: " + gender + ", " + "age: " + age);
+          tooltip.show();
+          tooltipLayer.batchDraw();
+          console.log(node)
+        }
+
+        deathlayer.on('mouseout', function(evt) {
+        tooltip.hide();
+        tooltipLayer.draw();
+      });
+        deathlayer.on('mouseout', function(evt) {
+        tooltip.hide();
+        tooltipLayer.draw();
         });
+    });
   //streets mouseover
   maplayer.on('mouseover', function(event,death_group) {
           var mousePos = stage.getPointerPosition();
