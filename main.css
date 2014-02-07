@@ -88,7 +88,7 @@ input[type=checkbox] {
 	position: fixed;
 	top: 5%;
     left: 10%;
-    width: 80%;
+    width: 1025px;
 	background: #bfbebe;
 }
 
@@ -101,7 +101,7 @@ input[type=checkbox] {
 	position:fixed;
 	bottom:0%;
 	left:10%;
-	width: 80%;
+	width: 1025px;
 	height: 100px;
 	font-size: 14px;
 	line-height: 1.2em;

@@ -269,8 +269,9 @@ function paintMap(scale,from,to)
         var node = evt.targetNode;
         if (node) {
           // update tooltip
-          var mousePos = node.getStage().getPointerPosition();
-          tooltip.position({x:mousePos.x, y:mousePos.y - 5});
+          var mousePosx = node.attrs.x;
+          var mousePosy = node.attrs.y;
+          tooltip.position({x:mousePosx, y:mousePosy - 5});
           if (node.attrs.fill=='pink'){
             gender="female";
           }
@@ -313,10 +314,12 @@ function paintMap(scale,from,to)
   //streets mouseover
   maplayer.on('mouseover', function(event,death_group) {
           var mousePos = stage.getPointerPosition();
-          var x = mousePos.x-40;
-          var y = mousePos.y+10;
+          var offset = stage.getOffset();
+          var x = mousePos.x+offset.x;
+          var y = mousePos.y+offset.y;
           //writeMessage('x: ' + x + ', y: ' + y);
           writeMessage('Pump',x,y);
+          console.log(offset.x)
         });
   maplayer.on('mouseout', function(event,death_group) {
           var mousePos = stage.getPointerPosition();
