@@ -6,12 +6,25 @@
 
 document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
 
 //variable to set the initial scale
 var scale = 60;
 var from = 0;
 var to = Deaths.position.length;
+var female_deaths_day = new Array ();
+var male_deaths_day = new Array ();
 
+//we save the amount of people that die each day
+var deaths_per_day = new Array ();
+var deaths_per_day_per_gender= [0,0];
+var deaths_all_gender = new Array();
+
+for (var i=0; i<Death_dates.day.length; i++)
+{
+  deaths_per_day.push(Death_dates.day[i].deaths);
+  console.log(deaths_per_day)
+}
 
 //initialize the stage
 var stage = new Kinetic.Stage({
@@ -141,8 +154,21 @@ function paintMap(scale,from,to)
   //Add deaths to the layer
   for (var i=from; i<to;i++)
   {
-      addNode(deathlayer,Deaths.position[i],scale,color,i,age);  
-  } 
+      addNode(deathlayer,Deaths.position[i],scale,color,i,age);
+  }
+
+  //Generate different genre deaths for each day
+  for (var i=0; i<deaths_per_day.length;i++)
+  {
+        for (var j=0; j<deaths_per_day[i];j++)
+        {
+          deaths_per_day_per_gender[i]=+female_deaths_day[j];
+          deaths_per_day_per_gender[i]=+female_deaths_day[j];
+        }
+  }
+  console.log(female_deaths_day)
+  console.log(male_deaths_day)
+  console.log(deaths_per_day_per_gender) 
   maplayer.add(line_group)
   pumplayer.add(pump_group)
   //deathlayer.add(death)
@@ -150,10 +176,10 @@ function paintMap(scale,from,to)
   stage.add(pumplayer);
   stage.add(deathlayer);
 
-  //Functions of paintMap fuction
+  //Functions of paintMap fuction############################################
 
   //Function to create a node
-  function addNode(layer,DeathsPosition,scale,color,i) {
+  function addNode(layer,DeathsPosition,scale,color,i,DeathssperDay) {
         var death = new Kinetic.Rect({
           x: (DeathsPosition.x-3)*scale,
           y: -(DeathsPosition.y-19)*scale,
@@ -165,11 +191,19 @@ function paintMap(scale,from,to)
           id: i,
           age: age[i]
         });
+        if (death.attrs.fill=='pink')
+        {
+          female_deaths_day.push(1)
+          male_deaths_day.push(0)
+        }
+        else{
+          male_deaths_day.push(1)
+          female_deaths_day.push(0)
+        }
         deathlayer.add(death)
-        console.log(death)
       }
 
-  //Functions to see values of the data
+  //Functions to see values of the data ////////////////////////////////////////
   
   //1. Pumps mouseover
   pumplayer.on('mouseover', function(evt) {

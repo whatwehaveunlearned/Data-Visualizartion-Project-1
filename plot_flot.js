@@ -4,6 +4,7 @@
 
 document.write('<scr'+'ipt type="text/javascript" src="map.js" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
 
 	$(function() {
 
@@ -52,7 +53,99 @@ document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'i
 			  ["27-Sep",1  ],
 			  ["28-Sep",0  ],
 			  ["29-Sep",0  ]
-			]}];
+			]}, {
+			label: "Female", 
+			data: [
+			  ["19-Aug",1  ],
+			  ["20-Aug",1  ],
+			  ["21-Aug",0  ],
+			  ["22-Aug",0  ],
+			  ["23-Aug",0  ],
+			  ["24-Aug",1  ],
+			  ["25-Aug",0  ],
+			  ["26-Aug",1  ],
+			  ["27-Aug",1  ],
+			  ["28-Aug",0  ],
+			  ["29-Aug",0  ],
+			  ["30-Aug",8  ],
+			  ["31-Aug",56  ],
+			  ["01-Sep",143  ],
+			  ["02-Sep",116  ],
+			  ["03-Sep",54  ],
+			  ["04-Sep",46  ],
+			  ["05-Sep",36  ],
+			  ["06-Sep",20  ],
+			  ["07-Sep",28  ],
+			  ["08-Sep",12  ],
+			  ["09-Sep",11  ],
+			  ["10-Sep",5  ],
+			  ["11-Sep",5  ],
+			  ["12-Sep",1  ],
+			  ["13-Sep",3  ],
+			  ["14-Sep",0  ],
+			  ["15-Sep",1  ],
+			  ["16-Sep",4  ],
+			  ["17-Sep",2  ],
+			  ["18-Sep",3  ],
+			  ["19-Sep",0  ],
+			  ["20-Sep",0  ],
+			  ["21-Sep",2  ],
+			  ["22-Sep",1  ],
+			  ["23-Sep",1  ],
+			  ["24-Sep",1  ],
+			  ["25-Sep",1  ],
+			  ["26-Sep",1  ],
+			  ["27-Sep",1  ],
+			  ["28-Sep",0  ],
+			  ["29-Sep",0  ]
+			]
+		}, {
+			label: "male", 
+			data: [
+			  ["19-Aug",1  ],
+			  ["20-Aug",1  ],
+			  ["21-Aug",0  ],
+			  ["22-Aug",0  ],
+			  ["23-Aug",1  ],
+			  ["24-Aug",1  ],
+			  ["25-Aug",0  ],
+			  ["26-Aug",1  ],
+			  ["27-Aug",1  ],
+			  ["28-Aug",1  ],
+			  ["29-Aug",1  ],
+			  ["30-Aug",8  ],
+			  ["31-Aug",56  ],
+			  ["01-Sep",143  ],
+			  ["02-Sep",116  ],
+			  ["03-Sep",54  ],
+			  ["04-Sep",46  ],
+			  ["05-Sep",36  ],
+			  ["06-Sep",20  ],
+			  ["07-Sep",28  ],
+			  ["08-Sep",12  ],
+			  ["09-Sep",11  ],
+			  ["10-Sep",5  ],
+			  ["11-Sep",5  ],
+			  ["12-Sep",1  ],
+			  ["13-Sep",3  ],
+			  ["14-Sep",0  ],
+			  ["15-Sep",1  ],
+			  ["16-Sep",4  ],
+			  ["17-Sep",2  ],
+			  ["18-Sep",3  ],
+			  ["19-Sep",0  ],
+			  ["20-Sep",0  ],
+			  ["21-Sep",2  ],
+			  ["22-Sep",1  ],
+			  ["23-Sep",1  ],
+			  ["24-Sep",1  ],
+			  ["25-Sep",1  ],
+			  ["26-Sep",1  ],
+			  ["27-Sep",1  ],
+			  ["28-Sep",0  ],
+			  ["29-Sep",0  ]
+			]
+		}];
 
 		var options = {
 			series: {
