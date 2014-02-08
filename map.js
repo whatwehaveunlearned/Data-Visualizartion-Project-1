@@ -17,13 +17,13 @@ var male_deaths_day = new Array ();
 
 //we save the amount of people that die each day
 var deaths_per_day = new Array ();
-var deaths_per_day_per_gender= [0,0];
+var deaths_per_day_per_gender = new Array();
 var deaths_all_gender = new Array();
 
 for (var i=0; i<Death_dates.day.length; i++)
 {
   deaths_per_day.push(Death_dates.day[i].deaths);
-  console.log(deaths_per_day)
+  console.log(deaths_per_day.length)
 }
 
 //initialize the stage
@@ -156,15 +156,22 @@ function paintMap(scale,from,to)
   {
       addNode(deathlayer,Deaths.position[i],scale,color,i,age);
   }
-
+  var j =0;
   //Generate different genre deaths for each day
-  for (var i=0; i<deaths_per_day.length;i++)
+  for (var i=0; i<3;i++)
   {
-        for (var j=0; j<deaths_per_day[i];j++)
+        //Initialize count
+        deaths_per_day_per_gender[i]=0
+        deaths_per_day_per_gender[i+1]=0
+        while (j<deaths_per_day[i])
         {
           deaths_per_day_per_gender[i]=+female_deaths_day[j];
-          deaths_per_day_per_gender[i]=+female_deaths_day[j];
+          deaths_per_day_per_gender[i+1]=+male_deaths_day[j];
+          j++;
         }
+        console.log(j)
+        i++;
+        console.log(i)
   }
   console.log(female_deaths_day)
   console.log(male_deaths_day)
