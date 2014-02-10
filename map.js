@@ -4,27 +4,52 @@
 
 // Include map_info.js, death.js, plot_flot.js
 
-document.write('<scr'+'ipt type="text/javascript" src="map_info.js" ></scr'+'ipt>');
-document.write('<scr'+'ipt type="text/javascript" src="death.js" ></scr'+'ipt>');
+document.write('<scr'+'ipt type="text/javascript" src="jsnow_data.json" ></scr'+'ipt>');
 document.write('<scr'+'ipt type="text/javascript" src="death_days.js" ></scr'+'ipt>');
+
+//Create the tabs for the application, about and info
+$(function() {
+    $("#tabs" ).tabs();
+  });
 
 //variable to set the initial scale
 var scale = 60;
 var from = 0;
 var to = Deaths.position.length;
-var female_deaths_day = new Array ();
-var male_deaths_day = new Array ();
 
-//we save the amount of people that die each day
-var deaths_per_day = new Array ();
-var deaths_per_day_per_gender = new Array();
-var deaths_all_gender = new Array();
-
-for (var i=0; i<Death_dates.day.length; i++)
-{
-  deaths_per_day.push(Death_dates.day[i].deaths);
-  console.log(deaths_per_day.length)
+// Function to Check the values of the checkboxes
+function checkbox(checkbox){
+  var ages_range = new Array();
+  ages_range.push(document.getElementById("0").checked);
+  ages_range.push(document.getElementById("1").checked);
+  ages_range.push(document.getElementById("2").checked);
+  ages_range.push(document.getElementById("3").checked);
+  ages_range.push(document.getElementById("4").checked);
+  ages_range.push(document.getElementById("5").checked);
+  ages_range.push(document.getElementById("6").checked);
+  console.log(ages_range)
 }
+
+//Fuction to manage the zoom
+    $(document).ready(function()
+    {
+      $("#plus").click(function(){
+        scale+=5;
+        deathlayer.removeChildren();
+        line_group.removeChildren();
+        pump_group.removeChildren();
+        textlayer.removeChildren();
+        paintMap(scale,from,to);
+      });
+      $("#minus").click(function(){
+        scale-=5;
+        deathlayer.removeChildren();
+        line_group.removeChildren();
+        pump_group.removeChildren();
+        textlayer.removeChildren();
+        paintMap(scale,from,to);
+      });
+    });
 
 //initialize the stage
 var stage = new Kinetic.Stage({
@@ -70,6 +95,35 @@ function paintMap(scale,from,to)
   //initialize array to hold sex color of the death
   var color = new Array();
   var age = new Array();
+  //initialize array to hold where the pump is
+  var at = new Array();
+  at.push('Oxford Market');
+  at.push('');
+  at.push('Castle St. East');
+  at.push('');
+  at.push('Berners St.');
+  at.push('');
+  at.push('Newman St.');
+  at.push('');
+  at.push('Marlborough Mews');
+  at.push('');
+  at.push('Little Marlborogh St.')
+  at.push('');
+  at.push('Broad St.');
+  at.push('');
+  at.push('Warwick St.');
+  at.push('');
+  at.push('Bridle St.');
+  at.push('');
+  at.push('Rupert St.');
+  at.push('');
+  at.push('Dean St.');
+  at.push('');
+  at.push('Tichborne St.');
+  at.push('');
+  at.push('Vigo Street')
+
+
 
   //read coordenates from map and draw a line
   for (var i=0;i<Points.map.length;i++)
@@ -121,7 +175,7 @@ function paintMap(scale,from,to)
   }
 
   //Create the real pumps and add them to the layer
-  for (var i=0; i<pump_position.length;i++)
+  for (var i=0; i<26;i++)
   {	
   	pump[i] = new Kinetic.Circle({
   	        x: pump_position[i],
@@ -129,7 +183,8 @@ function paintMap(scale,from,to)
   	        radius: 0.16*scale,
   	        fill: 'blue',
   	        stroke: 'black',
-  	        strokeWidth: 0.02*scale
+  	        strokeWidth: 0.02*scale,
+            at: at[i]
   	      });
     pump_group.add(pump[i]);
   	i++;
@@ -141,41 +196,85 @@ function paintMap(scale,from,to)
   	death_position.push((Deaths.position[i].x-3)*scale)
   	death_position.push(-(Deaths.position[i].y-19)*scale)
     age.push(Deaths.position[i].age)
-      if (Deaths.position[i].sex==1)
+      if (Deaths.position[i].gender==1)
       {
-          color.push('pink');
+          if (age[i]==0){
+            color.push('#F2D0DC');
+          }
+          if (age[i]==1){
+            color.push('#EEBCCD');
+          }
+          if (age[i]==2){
+            color.push('#E8AABF');
+          }
+          if (age[i]==3){
+            color.push('#CF90A6');
+          }
+          if (age[i]==4){
+            color.push('#A17081');
+          }
+          if (age[i]==5){
+            color.push('#73505C');   
+          }
       }
       else
       {
-          color.push('green');
+        if (age[i]==0){
+            color.push('#66E066');
+          }
+          if (age[i]==1){
+            color.push('#33D633');
+          }
+          if (age[i]==2){
+            color.push('#00CC00');
+          }
+          if (age[i]==3){
+            color.push('#00A300');
+          }
+          if (age[i]==4){
+            color.push('#008F00');
+          }
+          if (age[i]==5){
+            color.push('#006600');   
+          }
       }
   }    
 
   //Add deaths to the layer
   for (var i=from; i<to;i++)
   {
-      addNode(deathlayer,Deaths.position[i],scale,color,i,age);
+      addNode(deathlayer,Deaths.position[i],scale,color,i,age);  
   }
-  var j =0;
-  //Generate different genre deaths for each day
-  for (var i=0; i<3;i++)
-  {
-        //Initialize count
-        deaths_per_day_per_gender[i]=0
-        deaths_per_day_per_gender[i+1]=0
-        while (j<deaths_per_day[i])
-        {
-          deaths_per_day_per_gender[i]=+female_deaths_day[j];
-          deaths_per_day_per_gender[i+1]=+male_deaths_day[j];
-          j++;
-        }
-        console.log(j)
-        i++;
-        console.log(i)
-  }
-  console.log(female_deaths_day)
-  console.log(male_deaths_day)
-  console.log(deaths_per_day_per_gender) 
+
+  //Add Workhouse and Brewery
+
+  var workhouse = new Kinetic.Rect({
+          x: 7.5*scale,
+          y: 5.5*scale,
+          width: 1.3*scale,
+          height: 0.8*scale,
+          fill: "#666666" ,
+          stroke: 'black',
+          strokeWidth: 0.01*scale, 
+          rotation: -22
+        });
+  var brewery = new Kinetic.Rect({
+          x: 10.83*scale,
+          y: 6.61*scale,
+          width: 0.9*scale,
+          height: 0.38*scale,
+          fill: "#666666" ,
+          stroke: 'white',
+          strokeWidth: 0.01*scale, 
+          rotation: 61
+        });
+
+  line_group.add(workhouse)
+  line_group.add(brewery)
+  writeMessage("Work",7.6*scale,5.5*scale,-21,scale,"white",0.25)
+  writeMessage("house",8*scale,5.7*scale,-21,scale,"white",0.25)
+  writeMessage("Brewery",10.8*scale,6.68*scale,60,scale,"white",0.23)
+
   maplayer.add(line_group)
   pumplayer.add(pump_group)
   //deathlayer.add(death)
@@ -183,10 +282,17 @@ function paintMap(scale,from,to)
   stage.add(pumplayer);
   stage.add(deathlayer);
 
-  //Functions of paintMap fuction############################################
+  //Add names of the streets (Hardcoded)
+  writeMessage("Oxford Street",2.8*scale,3.2*scale,-12,scale,"black",0.25)
+  writeMessage("Oxford Street",8.5*scale,2.1*scale,-12,scale,"black",0.25)
+  writeMessage("Soho Square",14.45*scale,3.2*scale,-21,scale,"black",0.25)
+  writeMessage("Regent Street",2.9*scale,3.7*scale,75,scale,"black",0.25)
+  writeMessage("Regent Street",5.9*scale,10*scale,60,scale,"black",0.25)
+
+  //Functions of paintMap fuction
 
   //Function to create a node
-  function addNode(layer,DeathsPosition,scale,color,i,DeathssperDay) {
+  function addNode(layer,DeathsPosition,scale,color,i) {
         var death = new Kinetic.Rect({
           x: (DeathsPosition.x-3)*scale,
           y: -(DeathsPosition.y-19)*scale,
@@ -196,21 +302,13 @@ function paintMap(scale,from,to)
           stroke: 'black',
           strokeWidth: 0.01*scale, 
           id: i,
-          age: age[i]
+          age: age[i],
+          gender: Deaths.position[i].gender
         });
-        if (death.attrs.fill=='pink')
-        {
-          female_deaths_day.push(1)
-          male_deaths_day.push(0)
-        }
-        else{
-          male_deaths_day.push(1)
-          female_deaths_day.push(0)
-        }
         deathlayer.add(death)
       }
 
-  //Functions to see values of the data ////////////////////////////////////////
+  //Functions to see values of the data
   
   //1. Pumps mouseover
   pumplayer.on('mouseover', function(evt) {
@@ -249,9 +347,10 @@ function paintMap(scale,from,to)
         var node = evt.targetNode;
         if (node) {
           // update tooltip
-          var mousePos = node.getStage().getPointerPosition();
-          tooltip.position({x:mousePos.x, y:mousePos.y - 5});
-          tooltip.getText().text('Pump');
+          var mousePosx = node.attrs.x;
+          var mousePosy = node.attrs.y;
+          tooltip.position({x:mousePosx, y:mousePosy - 5});
+          tooltip.getText().text(node.attrs.at + ' pump');
           tooltip.show();
           tooltipLayer.batchDraw();
         }
@@ -264,13 +363,7 @@ function paintMap(scale,from,to)
         tooltip.hide();
         tooltipLayer.draw();
         });
-
-          var mousePos = stage.getPointerPosition();
-          var x = mousePos.x;
-          var y = mousePos.y;
-          //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage('Pump',x,y);
-        });
+    });
 
   //Deaths mouseover
 
@@ -313,34 +406,33 @@ function paintMap(scale,from,to)
           var mousePosx = node.attrs.x;
           var mousePosy = node.attrs.y;
           tooltip.position({x:mousePosx, y:mousePosy - 5});
-          if (node.attrs.fill=='pink'){
+          if (node.attrs.gender==1){
             gender="female";
           }
           else{
             gender="male";
           }
           if (node.attrs.age==0){
-            age="0-10"
+            age=" < 10"
           }
           if (node.attrs.age==1){
-            age="11-20"
+            age="11 - 20"
           }
           if (node.attrs.age==2){
-            age="21-40"
+            age="21 - 40"
           }
           if (node.attrs.age==3){
-            age="41-60"
+            age="41 - 60"
           }
           if (node.attrs.age==4){
-            age="61-80"
+            age="61 - 80"
           }
           if (node.attrs.age==5){
-            age=">80"    
+            age=" > 80"    
           }
-          tooltip.getText().text("gender: " + gender + ", " + "age: " + age);
+          tooltip.getText().text("" + gender + ", " + "age: " + age);
           tooltip.show();
           tooltipLayer.batchDraw();
-          console.log(node)
         }
 
         deathlayer.on('mouseout', function(evt) {
@@ -359,30 +451,28 @@ function paintMap(scale,from,to)
           var x = mousePos.x+offset.x;
           var y = mousePos.y+offset.y;
           //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage('Pump',x,y);
-          console.log(offset.x)
+          //writeMessage('Pump',x,y);
         });
   maplayer.on('mouseout', function(event,death_group) {
           var mousePos = stage.getPointerPosition();
           var x = mousePos.x-40;
           var y = mousePos.y+10;
           //writeMessage('x: ' + x + ', y: ' + y);
-          writeMessage(' ');
+          //writeMessage(' ');
         });
-  function writeMessage(message,x,y) {
+  function writeMessage(message,x,y,rotation,scale,fill,fontsize) {
           var text = new Kinetic.Text({
             x: x,
             y: y,
             fontFamily: 'Calibri',
-            fontSize: 24,
+            fontSize: fontsize*scale,
             text: '',
-            fill: 'black'
+            fill: fill,
+            rotation: rotation
           });
-            textlayer.removeChildren();
             text.setText(message);
             textlayer.add(text);
             textlayer.draw();
             stage.add(textlayer);
           }
-
 }

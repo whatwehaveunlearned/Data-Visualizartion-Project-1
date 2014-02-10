@@ -10,28 +10,163 @@
 	<head>
 		<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>-->
 		<!--<script src = "http://code.highcharts.com/stock/highstock.js"></script>-->
+		<meta name="author" content="Alberto Gonzalez">
 		<script language="javascript" src="jquery.js"></script>
 		<script language="javascript" src="jquery.flot.js"></script>
 		<script language="javascript" src="jquery.flot.selection.js"></script>
 		<script language="javascript" src="jquery.flot.categories.js"></script>
 		<script language="javascript" type="text/javascript" src="jquery.flot.threshold.js"></script>
+		<script src = "kinetic.js"></script>
+		<script src="jquery-ui-1.10.4.custom.js"></script>
+		<link href="jquery-ui-1.10.4.custom.css" rel="stylesheet" type="text/css">
 		<link href="main.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<body>
-		<p class="selection">You selected: <span id="selection"></span></p>
-		<button id="plus" type="button"> + </button>
-		<button id="minus" type="button"> - </button>
-		<div id ="map" class="map"></div>
-		<div id="plot" class="plot"></div>
-		<script src = "kinetic.js"></script>
-		<script src = "death.js"></script>
-		<script src = "map_info.js"></script>
-		<script src = "death_days.js"></script>
-		<script src = "plot_flot.js"></script>
-		<script src = "map.js"></script>
-		<input type="hidden" name="from" value="English">
-		<input type="hidden" name="to" value="English">
+		<div id="tabs">
+		  <small>&copy; Agon</small>
+		  <ul>
+		    <li><a href="#tabs-1">Application</a></li>
+		    <li><a href="#tabs-2">Instructions</a></li>
+		    <li><a href="#tabs-3">About</a></li>
+		  </ul>
+		  <div id="tabs-1">
+			<div id ="map" class="map"></div>
+			<div id="plot" class="plot"></div>
+			<p id="checkboxTitle"> Select the age range</p>
+			<div id="checkbox">
+				<form action="">
+					<input id ="0" onchange="checkbox(this)" type="checkbox" name="all" value="0"> show all</input>
+					<input id ="1" onchange="checkbox(this)" type="checkbox" name="<10" value="1"> <10 <br></input>
+					<input id ="2" onchange="checkbox(this)" type="checkbox" name="11-20" value="2">11-20 <br></input>
+					<input id ="3" onchange="checkbox(this)" type="checkbox" name="21-40" value="3">21-40 <br></input>
+					<input id ="4" onchange="checkbox(this)" type="checkbox" name="41-60" value="4">41-60 <br></input>
+					<input id ="5" onchange="checkbox(this)" type="checkbox" name="60-80" value="5">60-80 <br></input>
+					<input id ="6" onchange="checkbox(this)" type="checkbox" name=">80" value="6"> >80 <br></input>
+				</form>
+			</div>
+			<p id="north"> N <p>
+			<p id="west"> W <p>
+			<p id="east"> E <p>
+			<div class="button">
+				<button id="plus" type="button"> + </button>
+				<button id="minus" type="button"> - </button>
+			</div>
+			<div class="selection"> <p>You selected from:<p> <p><span id="selection"></span></p></div>
+			<script src = "death.js"></script>
+			<script src = "map_info.js"></script>
+			<script src = "death_days.js"></script>
+			<script src = "plot_flot.js"></script>
+			<script src = "map.js"></script>
+			<!--Need this to fill the screen with the same background-->
+		  	<br>
+		    <br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  	<br>
+		  </div>
+		  <div id="tabs-2" class="tab2">
+		    	<ol>
+			    	<li><a href="#history">Brief history of John Snow</a></li>
+			    	<li><a href="#download">Download the code</a></li>
+	  				<li><a href="#libraries">Libraries</a></li>
+	  				<li><a href="#instructions">Instructions to use the application</a></li>
+		    	</ol>
+		    <br>
+		    <hr>
+		    <h2 id="history"> Historical Facts </h2>
+		    <p>The significance of Snow's famous cholera map is that, by closing the Broad Street pump by removing its handle, Dr. Snow stopped a major cholera epidemic, and thus demonstrated that cholera is a water borne disease. This was not previously understood. The map is the most famous and classical example in the field of medical cartography. <a href="http://en.wikipedia.org/wiki/File:Snow-cholera-map-1.jpg">Map</a>
+		    </p>
+
+		    <p>Snow was a sceptic of the then-dominant miasma theory that stated that diseases such as cholera and bubonic plague were caused by pollution or a noxious form of "bad air". The germ theory of disease had not yet been developed, so Snow did not understand the mechanism by which the disease was transmitted. His observation of the evidence led him to discount the theory of foul air. He first publicised his theory in an 1849 essay, On the Mode of Communication of Cholera, followed by a more detailed treatise in 1855 incorporating the results of his investigation of the role of the water supply in the Soho epidemic of 1854.[7]
+			By talking to local residents (with the help of Reverend Henry Whitehead), he identified the source of the outbreak as the public water pump on Broad Street (now Broadwick Street). Although Snow's chemical and microscope examination of a water sample from the Broad Street pump did not conclusively prove its danger, his studies of the pattern of the disease were convincing enough to persuade the local council to disable the well pump by removing its handle. This action has been commonly credited as ending the outbreak, but Snow observed that the epidemic may have already been in rapid decline:
+			There is no doubt that the mortality was much diminished, as I said before, by the flight of the population, which commenced soon after the outbreak; but the attacks had so far diminished before the use of the water was stopped, that it is impossible to decide whether the well still contained the cholera poison in an active state, or whether, from some cause, the water had become free from it.</p>
+
+
+			<p>John Snow memorial and public house on Broadwick Street, Soho
+			Snow later used a dot map to illustrate the cluster of cholera cases around the pump. He also used statistics to illustrate the connection between the quality of the water source and cholera cases. He showed that the Southwark and Vauxhall Waterworks Company was taking water from sewage-polluted sections of the Thames and delivering the water to homes, leading to an increased incidence of cholera. Snow's study was a major event in the history of public health and geography. It is regarded as the founding event of the science of epidemiology.
+			Snow wrote:
+			<q>On proceeding to the spot, I found that nearly all the deaths had taken place within a short distance of the [Broad Street] pump. There were only ten deaths in houses situated decidedly nearer to another street-pump. In five of these cases the families of the deceased persons informed me that they always sent to the pump in Broad Street, as they preferred the water to that of the pumps which were nearer. In three other cases, the deceased were children who went to school near the pump in Broad Street...
+			With regard to the deaths occurring in the locality belonging to the pump, there were 61 instances in which I was informed that the deceased persons used to drink the pump water from Broad Street, either constantly or occasionally...
+			The result of the inquiry, then, is, that there has been no particular outbreak or prevalence of cholera in this part of London except among the persons who were in the habit of drinking the water of the above-mentioned pump well.
+			I had an interview with the Board of Guardians of St James's parish, on the evening of the 7th inst [7 September], and represented the above circumstances to them. In consequence of what I said, the handle of the pump was removed on the following day.</p>
+
+			<p><b>John Snow, letter to the editor of the Medical Times and Gazette:</b></p>
+
+			<p>Researchers later discovered that this public well had been dug only three feet from an old cesspit, which had begun to leak fecal bacteria. The nappies of a baby, who had contracted cholera from another source, had been washed into this cesspit. Its opening was originally under a nearby house, which had been rebuilt farther away after a fire. The city had widened the street and the cesspit was lost. It was common at the time to have a cesspit under most homes. Most families tried to have their raw sewage collected and dumped in the Thames to prevent their cesspit from filling faster than the sewage could decompose into the soil.</q>
+		    source<a href="http://en.wikipedia.org/wiki/John_Snow_(physician)"> Wikipedia </a></p>
+		    <br>
+		    <hr>
+		    <h2 id="download"> Download the code </h2>
+		    <p>
+		    	To download the code you have to go to <a href="https://github.com/whatwehaveunlearned/Data-Visualizartion-Project-1">github</a> and you can clone the repositorie. Then just go to the main.html file included and open it in an up to date chrome browser (safari is also supported). The application has not been tested on other browsers, but you can tested your self.
+		    </p>
+		    <br>
+		    <hr>
+		    <h2 id="libraries"> Libraries </h2>
+		    <p>Several libraries have been used in the development of this application:</p>
+		    <p><b>Kineticjs</b></p>
+		    <p>Library created by: Eric Rowell for creating easy, interactive Web graphics : <a href="http://kineticjs.com/"> Enterprise class interactive web graphics (website) </a> Kineticjs lets us create different layers that we can use to draw different elements such as: Triangles, rectangles, circles or custom poligons. It lets you create animations for those objects and interactuate with them using events such as click, mouseover and many more. For learning how to use it: <a href="https://github.com/ericdrowell/KineticJS/wiki"> KineticJS: How it works </a> You can see several tutorials: <a href="http://www.html5canvastutorials.com/kineticjs/html5-canvas-events-tutorials-introduction-with-kineticjs/"> KineticJS: Tutorials </a> This library is in great use and you can find a lot of information in google too.</p>
+		    <p><b>Flot</b></p>
+		   	<p>Flot the "Attractive JavaScript plotting for jQuery" library created by David Schnur. You can download the code: <a href="https://github.com/flot/flot"> here </a>I have used the library to implement the interactive plots. You can access several examples <a href="http://www.flotcharts.org/flot/examples/"> here </a> and you can find their website <a href=" http://www.flotcharts.org">here </a></p>
+		   	<br>
+		    <hr>
+		    <h2 id="instructions"> Instructions to use the application </h2>
+		    <p>When you access the aplication you will see the menu on the top to access, the visualization, this instructions and the about pages. In the center of the screen you should see the interactive map, you can hover with your mouse over different elements and you will obtain different data from the dead people (represented as squares), the pumps (as blue circles), the streets with their names (in white). You can dragg the map around to explore it. In the top left you should see the zoom which can be used to zoom in and out. Secondly your notice a plot under the map, with three elements: Total dead people, females dead and males dead the each of the different dates. If you double click on it you will see the plot twice as big.  You can select different time intervals and the data in the map will be filtered accordingly</p>
+		    <img src="smiley.gif" width="42" height="42">
+		    <img src="smiley.gif" width="42" height="42">
+		  </div>
+		  <div id="tabs-3">
+		    <p>This visualization was developed in February 2014 by: Alberto Gonzalez Martinez</p>
+		  	<p>This visualization was developed as the first Project for the 2014 Data visualization class, tought by Jason Leigh at University of Hawaii at Manoa. The class is done in a cooperative way between UH and the University of Chicago.</p>
+		    <p> Time of development: 3 weeks <p>
+		    <p> All the software for this application can be downloaded at github: <a href="https://github.com/whatwehaveunlearned/Data-Visualizartion-Project-1">Snow Project</a> 
+		   	<p>If you have any questions about the application, suggestions, or wish to contact me for any collaboration don`t hesitate to do it<p>
+		    <p>Contact: agon@hawaii.edu</p>
+		    <p>If you wish to work with me or hire me, you can also contact me using Linkedin, where you can also take a look at my resume. <a href="http://www.linkedin.com/pub/alberto-gonzález/54/2a2/696/en">Linkedin Profile</a><p>
+		    <hr>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		    <br>
+		   </div>
+		</div>
 	</body>
 
 </html>
