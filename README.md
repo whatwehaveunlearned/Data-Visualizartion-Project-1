@@ -5,6 +5,8 @@ Snow Cholera visualization
 
 Visualization of the deaths caused by Cholera analized by Snow to argue that cholera was transmited by contaminated water.
 
+This visualization was developed as the first project of Data visualization class at University of Hawaii at Manoa by Alberto Gonzalez
+
 ===================================================================================
 Download the hole code, including al .js files and .json files.
 
@@ -23,3 +25,5 @@ All the code is comented to let the user tweak any function letting them add or 
 Hope you enjoy it!
 
 agon (c)
+
+For any question or comments contact me at : agon@hawaii.edu
